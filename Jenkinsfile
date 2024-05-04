@@ -14,7 +14,7 @@ pipeline {
         
         stage('Python') {
             steps {
-                withDockerContainer('safesecurity/pytest') {
+                withDockerContainer('python_pytest') {
                     sh '''
                     python --version
                     ls -la
