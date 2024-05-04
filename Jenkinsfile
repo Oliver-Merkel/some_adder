@@ -9,8 +9,6 @@ pipeline {
         stage('Hello') {
             steps {
                 echo 'Hello World'
-                echo 'Cleaning Workspace...'
-                cleanWs()
             }
         }
 
