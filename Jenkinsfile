@@ -11,26 +11,6 @@ pipeline {
                 echo 'Hello World'
             }
         }
-
-        stage('vcs') {
-            steps {
-                sh '''
-                # git clone https://github.com/Oliver-Merkel/some_adder.git
-                cd some_adder
-                ls -la
-                '''
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Testing...'
-                sh '''
-                mkdir -p build
-                echo ok > build/$BUILD_FILE_NAME
-                '''
-            }
-        }
         
         stage('Python') {
             steps {
@@ -38,7 +18,6 @@ pipeline {
                     sh '''
                     python --version
                     ls -la
-                    cd some_adder
                     python -m pytest -v --junitxml=result.xml
                     python -m doctest -v adder.py
                     '''
@@ -49,8 +28,8 @@ pipeline {
     
     post {
         success {
-            archiveArtifacts artifacts: 'some_adder/result.xml', followSymlinks: false
-            junit stdioRetention: '', testResults: 'some_adder/result.xml'
+            archiveArtifacts artifacts: 'result.xml', followSymlinks: false
+            junit stdioRetention: '', testResults: 'result.xml'
         }
     }
 }
