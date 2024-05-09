@@ -16,6 +16,7 @@ pipeline {
             steps {
                 withDockerContainer('python_pytest') {
                     sh '''
+                    whoami
                     python --version
                     ls -la
                     python -m pytest -v --junitxml=result.xml
