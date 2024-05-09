@@ -11,6 +11,14 @@ pipeline {
                 echo 'Hello World'
             }
         }
+
+        stage('Check_Docker_Image') {
+            steps {
+                sh '''
+                docker image ls | grep python_pytest || docker build -t python_pytest .
+                '''
+            }
+        }
         
         stage('Python') {
             steps {
