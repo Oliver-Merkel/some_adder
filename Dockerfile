@@ -1,3 +1,7 @@
-FROM python:3.12.3-alpine
+FROM python:alpine3.19
+USER root
+RUN adduser -s /bin/ash -h /home/oliver -D oliver
+USER oliver
+WORKDIR /home/oliver
 RUN pip install pytest
-RUN apk add git
+ENTRYPOINT export PATH="/home/oliver/.local/bin:$PATH" && ash
